@@ -1,2 +1,6 @@
 .env.local
 /venv
+/.idea
+/__pychache__
+.gitignore
+.des
