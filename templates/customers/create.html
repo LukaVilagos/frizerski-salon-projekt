@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Mušterije - Nova
+{% endblock %}
+
+{% block content %}
+    {% with crumbs=[{"link": "/customers/", "title": "Mušterije" }, {"link": "/customers/create/}", "title": "Nova Mušterija"}] %}
+        {% include 'components/breadcrumbs.html' %}
+    {% endwith %}
+    {% with title='Nova Mušterija', secondary_button = {"link": "/customers/", "title": "Odustani"} %}
+        {% include 'components/header.html' %}
+    {% endwith %}
+    <div class="container">
+        <form action="/customers/created" method="post">
+            <label>
+                Ime
+                <input type="text" name="name" required placeholder="Ime">
+            </label>
+            <label>
+                Prezime
+                <input type="text" name="surname" required placeholder="Prezime">
+            </label>
+            <label>
+                Broj Telefona
+                <input type="tel" name="number" required placeholder="Broj Telefona">
+            </label>
+            <label>
+                Email
+                <input type="email" name="email" required placeholder="Email">
+            </label>
+            <button type="submit" class="primary_button">Dodaj Mušteriju</button>
+        </form>
+    </div>
+{% endblock %}

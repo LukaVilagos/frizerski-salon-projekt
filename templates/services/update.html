@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Usluge - Uredi
+{% endblock %}
+
+{% block content %}
+    {% set service_link = "/services/" + service.id|string %}
+    {% set edit_link = "/services/" + service.id|string + "/update" %}
+    {% with crumbs=[{"link": "/services/", "title": "Usluge" }, {"link": service_link, "title": service.id}, {"link": edit_link, "title": "Uredi"}] %}
+        {% include 'components/breadcrumbs.html' %}
+    {% endwith %}
+    {% with title='Uredi Uslugu', secondary_button = {"link": service_link, "title": "Odustani"} %}
+        {% include 'components/header.html' %}
+    {% endwith %}
+    <div class="container">
+        <div class="form">
+            <label>
+                Naziv
+                <input type="text" name="name" placeholder="{{ service.name }}" value="{{ service.name }}" id="name">
+            </label>
+            <label>
+                Cijena
+                <input type="number" name="price" placeholder="{{ service.price }}" value="{{ service.price }}" id="price">
+            </label>
+            <button class="primary_button" onclick="updateService({{ service.id }})">Uredi Uslugu</button>
+        </div>
+    </div>
+{% endblock %}

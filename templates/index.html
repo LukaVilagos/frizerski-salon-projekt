@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Frizerski salon - Sustav
+{% endblock %}
+
+{% block content %}
+    {% include 'components/breadcrumbs.html' %}
+    {% with title='Sustav' %}
+        {% include 'components/header.html' %}
+    {% endwith %}
+    <div class="container">
+        <p>Odaberite <b>tablicu</b> za pregledati</p>
+    </div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Usluge
+{% endblock %}
+
+{% block content %}
+    {% with crumbs=[{"link": "/services", "title": "Usluge" }] %}
+        {% include 'components/breadcrumbs.html' %}
+    {% endwith %}
+    {% with title='Usluge', button={"link": "/services/create", "title": "Nova Usluga"} %}
+        {% include 'components/header.html' %}
+    {% endwith %}
+    <div class="search">
+        <form method="get">
+            <label>
+                <input type="text" placeholder="Naziv" name="name" value="{{ name if name }}">
+            </label>
+            <label>
+                <select name="order-by">
+                    <option value="added" {{ "selected" if order_by == "added" }}>Dodano</option>
+                    <option value="least-expensive" {{ "selected" if order_by == "least-expensive" }}>Prvo najjeftinije</option>
+                    <option value="most-expensive" {{ "selected" if order_by == "most-expensive" }}>Prvo najskuplje</option>
+                </select>
+            </label>
+            <button type="submit" class="primary_button">Potvrdi</button>
+            <a href="/services/" class="secondary_button">Poništi</a>
+        </form>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Naziv</th>
+                <th>Cijena</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for service in services %}
+            <tr>
+                <td>{{ service.id }}</td>
+                <td><a href="/services/{{ service.id }}">{{ service.name }}</a></td>
+                <td>€ {{ service.price }}</td>
+                <td>
+                    <a href="/services/{{ service.id }}/update"><button class="primary_table_button">{{ font_awesome.render_icon('fa-solid fa-pen') }}</button></a>
+                    <button class="secondary_table_button" onclick="deleteService({{ service.id }})">{{ font_awesome.render_icon('fa-solid fa-trash-can') }}</button>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+

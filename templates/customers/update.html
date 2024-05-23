@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Mušterije - Uredi
+{% endblock %}
+
+{% block content %}
+    {% set customer_link = "/customers/" + customer.id|string %}
+    {% set edit_link = "/customers/" + customer.id|string + "/update" %}
+    {% with crumbs=[{"link": "/customers/", "title": "Usluge" }, {"link": customer_link, "title": customer.id}, {"link": edit_link, "title": "Uredi"}] %}
+        {% include 'components/breadcrumbs.html' %}
+    {% endwith %}
+    {% with title='Uredi Mušteriju', secondary_button = {"link": customer_link, "title": "Odustani"} %}
+        {% include 'components/header.html' %}
+    {% endwith %}
+    <div class="container">
+        <div class="form">
+            <label>
+                Ime
+                <input type="text" name="name" required placeholder="{{ customer.name }}" value="{{ customer.name }}" id="name">
+            </label>
+            <label>
+                Prezime
+                <input type="text" name="surname" required placeholder="{{ customer.surname }}" value="{{ customer.surname }}" id="surname">
+            </label>
+            <label>
+                Broj Telefona
+                <input type="tel" name="number" required placeholder="{{ customer.number }}" value="{{ customer.number }}" id="number">
+            </label>
+            <label>
+                Email
+                <input type="email" name="email" required placeholder="{{ customer.email }}" value="{{ customer.email }}" id="email">
+            </label>
+            <button class="primary_button" onclick="updateCustomer({{ customer.id }})">Uredi Uslugu</button>
+        </div>
+    </div>
+{% endblock %}

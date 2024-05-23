@@ -1,0 +1,61 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Rezervacija - Uredi
+{% endblock %}
+
+{% block content %}
+    {% set reservation_link = "/reservations/" + reservation.id|string %}
+    {% set edit_link = "/reservations/" + reservation.id|string + "/update" %}
+    {% with crumbs=[{"link": "/reservations/", "title": "Rezervacija" }, {"link": reservation_link, "title": reservation.id}, {"link": edit_link, "title": "Uredi"}] %}
+        {% include 'components/breadcrumbs.html' %}
+    {% endwith %}
+    {% with title='Uredi Rezervaciju', secondary_button = {"link": reservation_link, "title": "Odustani"} %}
+        {% include 'components/header.html' %}
+    {% endwith %}
+    <div class="container">
+        <div class="form">
+            <div class="form-con">
+                <label>
+                    Frizer
+                    <select name="id_employee" id="id_employee" required >
+                        {% for employee in employees %}
+                            <option value="{{ employee.id }}" {{ "selected" if employee.id == reservation.id_employee.id }}>{{ employee.name }} {{ employee.surname }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+                <a class="create_button" href="/employees/create"><span>+</span></a>
+            </div>
+            <div class="form-con">
+                <label>
+                    Mušterija
+                    <select name="id_customer" id="id_customer" required>
+                         {% for customer in customers %}
+                            <option value="{{ customer.id }}" {{ "selected" if customer.id == reservation.id_customer.id}}>{{ customer.name }} {{ customer.surname }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+                <a class="create_button" href="/customers/create"><span>+</span></a>
+            </div>
+            <div class="form-con">
+               <label>
+                    Usluga
+                    <select name="id_service" id="id_service" required >
+                        {% for service in services %}
+                            <option value="{{ service.id }}" {{ "selected" if service.id == reservation.id_service.id }}>{{ service.name }} €{{ service.price }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+                <a class="create_button" href="/services/create"><span>+</span></a>
+            </div>
+            <label>
+                Datum Rezervacije
+                <input type="datetime-local" name="reservation_date" id="reservation_date" required max="3000-01-01T00:00" value="{{ reservation.reservation_date }}">
+            </label>
+            <button class="primary_button"
+                    onclick="updateReservation({{ reservation.id }})">
+                Uredi Rezervaciju
+            </button>
+        </div>
+    </div>
+{% endblock %}

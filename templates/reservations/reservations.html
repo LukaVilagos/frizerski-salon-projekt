@@ -1,0 +1,87 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Rezervacije
+{% endblock %}
+
+{% block content %}
+    {% with crumbs=[{"link": "/reservations", "title": "Rezervacije" }] %}
+        {% include 'components/breadcrumbs.html' %}
+    {% endwith %}
+    {% with title='Rezervacije', button={"link": "/reservations/create", "title": "Nova Rezervacija"} %}
+        {% include 'components/header.html' %}
+    {% endwith %}
+    <div class="search">
+        <form method="get">
+            <label>
+                <select name="id_employee" id="id_employee">
+                    <option value="null">Frizer</option>
+                    {% for employee in employees %}
+                        <option value="{{ employee.id }}" {{ "selected" if employee.id == id_employee|int and id_employee}}>{{ employee.name }} {{ employee.surname }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+            <label>
+                <select name="id_customer" id="id_customer">
+                    <option value="null">Mušterija</option>
+                     {% for customer in customers %}
+                        <option value="{{ customer.id }}" {{ "selected" if customer.id == id_customer|int and id_customer}}>{{ customer.name }} {{ customer.surname }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+            <label>
+                <select name="id_service" id="id_service" required>
+                    <option value="null">Usluga</option>
+                    {% for service in services %}
+                        <option value="{{ service.id }}" {{ "selected" if service.id == id_service|int and id_service}}>{{ service.name }} €{{ service.price }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+            <label class="checkbox-label">
+                Aktivno
+                <input type="checkbox" name="active" {{ "checked" if active == 'on' }}/>
+            </label>
+            <label>
+                <select name="order-by">
+                    <option value="added" {{ "selected" if order_by == "added" }}>Stvoreno</option>
+                    <option value="earliest" {{ "selected" if order_by == "earliest" }}>Prov najranije</option>
+                    <option value="latest" {{ "selected" if order_by == "latest" }}>Prvo najkasnije</option>
+                </select>
+            </label>
+            <button type="submit" class="primary_button">Potvrdi</button>
+            <a href="/reservations/" class="secondary_button">Poništi</a>
+        </form>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Frizer</th>
+                <th>Mušterija</th>
+                <th>Datum Rezervacije</th>
+                <th>Stvoreno</th>
+                <th>Usluga</th>
+                <th>Cijena</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reservation in reservations %}
+            <tr>
+                <td><a href="/reservations/{{ reservation.id }}">{{ reservation.id }}</a></td>
+                <td>{{ reservation.id_employee.name }} {{ reservation.id_employee.surname }}</td>
+                <td>{{ reservation.id_customer.name }} {{ reservation.id_customer.surname }}</td>
+                <td>{{ reservation.reservation_date }}</td>
+                <td>{{ reservation.created_at }}</td>
+                <td><a href="/services/{{ reservation.id_service.id }}">{{ reservation.id_service.name }}</a></td>
+                <td>€{{ reservation.id_service.price }}</td>
+                <td>
+                    <a href="/reservations/{{ reservation.id }}/update"><button class="primary_table_button">{{ font_awesome.render_icon('fa-solid fa-pen') }}</button></a>
+                    <button class="secondary_table_button" onclick="deleteReservation({{ reservation.id }})">{{ font_awesome.render_icon('fa-solid fa-trash-can') }}</button>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+

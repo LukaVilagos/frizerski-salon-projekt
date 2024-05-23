@@ -1,0 +1,25 @@
+<header>
+    <h1>{{ title }}</h1>
+    <div class="button-con">
+        {% if header_links %}
+            {% for link in header_links %}
+                <a
+                    class="header-link
+                    {{ ' active-link' if request.endpoint.endswith(link.endpoint) }}"
+                    href="{{ link.link }}"
+                >
+                    {{ link.title }}
+                </a>
+            {% endfor %}
+        {% endif %}
+        {% if delete_button %}
+            <button class="secondary_button" onclick="{{ delete_button['deleteFunction'] }}">{{ delete_button['title'] }}</button>
+        {% endif %}
+        {% if secondary_button %}
+            <a href="{{ secondary_button['link'] }}" class="secondary_button">{{ secondary_button['title'] }}</a>
+        {% endif %}
+        {% if button %}
+            <a href="{{ button['link'] }}"><button class="primary_button">{{ button['title'] }}</button></a>
+        {% endif %}
+    </div>
+</header>

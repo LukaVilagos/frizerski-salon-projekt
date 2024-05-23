@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Frizer - Nova
+{% endblock %}
+
+{% block content %}
+    {% with crumbs=[{"link": "/employees/", "title": "Frizer" }, {"link": "/employees/create/}", "title": "Novi Frizer"}] %}
+        {% include 'components/breadcrumbs.html' %}
+    {% endwith %}
+    {% with title='Novi Frizer', secondary_button = {"link": "/employees/", "title": "Odustani"} %}
+        {% include 'components/header.html' %}
+    {% endwith %}
+    <div class="container">
+        <form action="/employees/created" method="post">
+            <label>
+                Ime
+                <input type="text" name="name" required placeholder="Ime">
+            </label>
+            <label>
+                Prezime
+                <input type="text" name="surname" required placeholder="Prezime">
+            </label>
+            <label>
+                Broj Telefona
+                <input type="tel" name="number" required placeholder="Broj Telefona">
+            </label>
+            <label>
+                Email
+                <input type="email" name="email" required placeholder="Email">
+            </label>
+            <label>
+                Titula
+                <input type="text" name="title" required placeholder="title">
+            </label>
+            <button type="submit" class="primary_button">Dodaj Frizera</button>
+        </form>
+    </div>
+{% endblock %}

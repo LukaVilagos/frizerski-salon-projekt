@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Usluge - Nova
+{% endblock %}
+
+{% block content %}
+    {% with crumbs=[{"link": "/services/", "title": "Usluge" }, {"link": "/services/create/}", "title": "Nova Usluga"}] %}
+        {% include 'components/breadcrumbs.html' %}
+    {% endwith %}
+    {% with title='Nova Usluga', secondary_button = {"link": "/services/", "title": "Odustani"} %}
+        {% include 'components/header.html' %}
+    {% endwith %}
+    <div class="container">
+        <form action="/services/created" method="post">
+            <label>
+                Naziv
+                <input type="text" name="name"  required placeholder="Naziv">
+            </label>
+            <label>
+                Cijena
+                <input type="number" name="price" required placeholder="Cijena">
+            </label>
+            <button type="submit" class="primary_button">Dodaj Uslugu</button>
+        </form>
+    </div>
+{% endblock %}

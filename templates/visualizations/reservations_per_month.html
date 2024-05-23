@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Vizualizacije
+{% endblock %}
+
+{% block content %}
+    {% with crumbs=[{"link": "/visualizations", "title": "Vizualizacije" }] %}
+        {% include 'components/breadcrumbs.html' %}
+    {% endwith %}
+    {% with title='Vizualizacije', header_links=header_links %}
+        {% include 'components/header.html' %}
+    {% endwith %}
+    <div class="container">
+        <canvas id="myChart"></canvas>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        let ctx = document.getElementById('myChart').getContext('2d');
+
+        let reservationsByMonth = JSON.parse({{ reservations | tojson | safe }});
+
+        let myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: Object.keys(reservationsByMonth),
+                datasets: [{
+                    label: 'Broj rezervacija',
+                    data: Object.values(reservationsByMonth),
+                    backgroundColor: 'rgba(22, 120, 211, 0.2)',
+                    borderColor: 'rgba(22, 120, 211, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+{% endblock %}
+

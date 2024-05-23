@@ -1,0 +1,17 @@
+<div class="sidebar">
+    <div class="logo">
+        <h1>Frizerski Salon</h1>
+    </div>
+    <div class="navigation">
+        <h3> Meni </h3>
+        <nav>
+            <ul>
+                <li><a href="/reservations/"><button class="nav-button {{ 'active-nav' if request.endpoint.startswith('reservations') }}">{{ font_awesome.render_icon('fa-solid fa-address-book') }}Rezervacije</button></a></li>
+                <li><a href="/employees/"><button class="nav-button {{ 'active-nav' if request.endpoint.startswith('employees') }}">{{ font_awesome.render_icon('fa-solid fa-user-check') }}Frizeri</button></a></li>
+                <li><a href="/customers/"><button class="nav-button {{ 'active-nav' if request.endpoint.startswith('customers') }}">{{ font_awesome.render_icon('fa-solid fa-user') }}Mušterije</button></a></li>
+                <li><a href="/services/"><button class="nav-button {{ 'active-nav' if request.endpoint.startswith('services') }}">{{ font_awesome.render_icon('fa-solid fa-scissors') }}Usluge</button></a></li>
+                <li><a href="/visualizations/"><button class="nav-button {{ 'active-nav' if request.endpoint.startswith('visualizations') }}">{{ font_awesome.render_icon('fa-solid fa-chart-simple') }}Vizualizacija</button></a></li>
+            </ul>
+        </nav>
+    </div>
+</div>

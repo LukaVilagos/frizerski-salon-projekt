@@ -1,0 +1,56 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Rezervacije - Nova
+{% endblock %}
+
+{% block content %}
+    {% with crumbs=[{"link": "/reservations/", "title": "Rezervacije" }, {"link": "/reservations/create/}", "title": "Nova Rezervacija"}] %}
+        {% include 'components/breadcrumbs.html' %}
+    {% endwith %}
+    {% with title='Nova Rezervacija', secondary_button = {"link": "/reservations/", "title": "Odustani"} %}
+        {% include 'components/header.html' %}
+    {% endwith %}
+    <div class="container">
+        <form action="/reservations/created" method="post">
+            <div class="form-con">
+                <label>
+                    Frizer
+                    <select name="id_employee" id="id_employee" required>
+                        {% for employee in employees %}
+                            <option value="{{ employee.id }}">{{ employee.name }} {{ employee.surname }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+                <a class="create_button" href="/employees/create"><span>+</span></a>
+            </div>
+            <div class="form-con">
+                <label>
+                    Mušterije
+                    <select name="id_customer" id="id_customer" required>
+                         {% for customer in customers %}
+                            <option value="{{ customer.id }}">{{ customer.name }} {{ customer.surname }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+                <a class="create_button" href="/customers/create"><span>+</span></a>
+            </div>
+            <div class="form-con">
+               <label>
+                    Usluga
+                    <select name="id_service" id="id_service" required>
+                        {% for service in services %}
+                            <option value="{{ service.id }}">{{ service.name }} €{{ service.price }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+                <a class="create_button" href="/services/create"><span>+</span></a>
+            </div>
+            <label>
+                Datum Rezervacije
+                <input type="datetime-local" name="reservation_date" id="reservation_date" required max="3000-01-01T00:00">
+            </label>
+            <button type="submit" class="primary_button">Dodaj Rezervaciju</button>
+        </form>
+    </div>
+{% endblock %}

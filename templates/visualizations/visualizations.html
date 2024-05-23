@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Vizualizacije
+{% endblock %}
+
+{% block content %}
+    {% with crumbs=[{"link": "/visualizations", "title": "Vizualizacije" }] %}
+        {% include 'components/breadcrumbs.html' %}
+    {% endwith %}
+    {% with title='Vizualizacije', header_links=header_links %}
+        {% include 'components/header.html' %}
+    {% endwith %}
+    <div class="container">
+        <p>Odaberite <b>vizualizaciju</b> za prikazati.</p>
+    </div>
+{% endblock %}
+

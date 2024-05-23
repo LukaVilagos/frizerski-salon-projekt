@@ -1,0 +1,64 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Mušterije
+{% endblock %}
+
+{% block content %}
+    {% with crumbs=[{"link": "/customers", "title": "Mušterije" }] %}
+        {% include 'components/breadcrumbs.html' %}
+    {% endwith %}
+    {% with title='Mušterije', button={"link": "/customers/create", "title": "Nova Mušterija"} %}
+        {% include 'components/header.html' %}
+    {% endwith %}
+    <div class="search">
+        <form method="get">
+            <label>
+                <input type="text" placeholder="Ime" name="name" value="{{ name if name }}">
+            </label>
+            <label>
+                <input type="text" placeholder="Prezime" name="surname" value="{{ surname if surname }}">
+            </label>
+            <label>
+                <input type="tel" placeholder="Broj Tel." name="number" value="{{ number if number }}">
+            </label>
+            <label>
+                <input type="email" placeholder="Email" name="email" value="{{ email if email }}">
+            </label>
+            <label>
+                <select name="order-by">
+                    <option value="added-first" {{ "selected" if order_by == "added-first" }}>Dodano Prvo</option>
+                    <option value="added-last" {{ "selected" if order_by == "added-last" }}>Dodano Zadnje</option>
+                </select>
+            </label>
+            <button type="submit" class="primary_button">Potvrdi</button>
+            <a href="/customers/" class="secondary_button">Poništi</a>
+        </form>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Ime</th>
+                <th>Broj Tel.</th>
+                <th>Email</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for customer in customers %}
+            <tr>
+                <td>{{ customer.id }}</td>
+                <td><a href="/customers/{{ customer.id }}">{{ customer.name }} {{ customer.surname }}</a></td>
+                <td>{{ customer.number }}</td>
+                <td>{{ customer.email }}</td>
+                <td>
+                    <a href="/customers/{{ customer.id }}/update"><button class="primary_table_button">{{ font_awesome.render_icon('fa-solid fa-pen') }}</button></a>
+                    <button class="secondary_table_button" onclick="deleteCustomer({{ customer.id }})">{{ font_awesome.render_icon('fa-solid fa-trash-can') }}</button>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+

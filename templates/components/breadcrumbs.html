@@ -1,0 +1,7 @@
+<div class="breadcrumbs">
+    <span><a href="/">Sustav</a></span>
+    {% for crumb in crumbs %}
+        <span>/</span>
+        <span><a href="{{ crumb['link'] }}" class={{ 'active-crumb' if crumb == crumbs[-1] }}>{{ crumb['title'] }}</a></span>
+    {% endfor %}
+</div>

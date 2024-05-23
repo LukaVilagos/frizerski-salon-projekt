@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Frizeri - Uredi
+{% endblock %}
+
+{% block content %}
+    {% set employee_link = "/employees/" + employee.id|string %}
+    {% set edit_link = "/employees/" + employee.id|string + "/update" %}
+    {% with crumbs=[{"link": "/employees/", "title": "Usluge" }, {"link": employee_link, "title": employee.id}, {"link": edit_link, "title": "Uredi"}] %}
+        {% include 'components/breadcrumbs.html' %}
+    {% endwith %}
+    {% with title='Uredi Frizera', secondary_button = {"link": employee_link, "title": "Odustani"} %}
+        {% include 'components/header.html' %}
+    {% endwith %}
+    <div class="container">
+        <div class="form">
+            <label>
+                Ime
+                <input type="text" name="name" required placeholder="{{ employee.name }}" value="{{ employee.name }}" id="name">
+            </label>
+            <label>
+                Prezime
+                <input type="text" name="surname" required placeholder="{{ employee.surname }}" value="{{ employee.surname }}" id="surname">
+            </label>
+            <label>
+                Broj Telefona
+                <input type="tel" name="number" required placeholder="{{ employee.number }}" value="{{ employee.number }}" id="number">
+            </label>
+            <label>
+                Email
+                <input type="email" name="email" required placeholder="{{ employee.email }}" value="{{ employee.email }}" id="email">
+            </label>
+            <label>
+                Titula
+                <input type="text" name="title" required placeholder="{{ employee.title }}" value="{{ employee.title }}" id="title">
+            </label>
+            <button class="primary_button" onclick="updateEmployee({{ employee.id }})">Uredi Uslugu</button>
+        </div>
+    </div>
+{% endblock %}

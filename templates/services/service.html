@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Usluga
+{% endblock %}
+
+{% block content %}
+    {% set service_link = "/services/" + service.id|string + "/" %}
+    {% set edit_link = "/services/" + service.id|string + "/update" %}
+    {% set function_link = "deleteService(" + service.id|string + ")" %}
+    {% with crumbs=[{"link": "/services/", "title": "Usluge" }, {"link": service_link, "title": service.id}] %}
+        {% include 'components/breadcrumbs.html' %}
+    {% endwith %}
+    {% with title='Usluga', button = {"link": edit_link, "title": "Uredi Uslugu"}, delete_button = {"deleteFunction": function_link, "title": "Obriši Uslugu"} %}
+        {% include 'components/header.html' %}
+    {% endwith %}
+    <div class="container">
+        <div class="atr-con">
+            <h3>ID</h3>
+            <span>{{ service.id }}</span>
+        </div>
+        <div class="atr-con">
+            <h3>Naziv</h3>
+            <span>{{ service.name }}</span>
+        </div>
+        <div class="atr-con">
+            <h3>Cijena</h3>
+            <span>{{ service.price }}</span>
+        </div>
+    </div>
+{% endblock %}
