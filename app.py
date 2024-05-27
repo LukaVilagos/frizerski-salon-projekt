@@ -51,7 +51,7 @@ def send_mail():
         msg.html = (f"<h1>{'Promjena - ' if update == 'True' else ''}Rezervacija za {reservation.id_service.name}</h1>"
                     f"<p>Poštovani, obavještavamo vas da ste rezervirali uslugu {reservation.id_service.name}, "
                     f"datuma {reservation.reservation_date} po cijeni {reservation.id_service.price} €"
-                    f"u salonu Frizerski Salon. <br> Radujemo se vašem dolasku.</p>")
+                    f" u salonu Frizerski Salon. <br> Radujemo se vašem dolasku.</p>")
 
         mail.send(msg)
 
@@ -62,4 +62,4 @@ def send_mail():
 
 
 if __name__ == '__main__':
-    app.run(port=5000)
+    app.run(port=5000, host="0.0.0.0", debug=True)
