@@ -57,7 +57,7 @@ docker run -p 5001:5000 frizer:1.0
 
 Da biste postavili automatsko slanje elektronske pošte nakon stvaranja rezervacije pratite sljedeće upute:
 
-1. Preimenovati ".env.example" u ".evn.local"
+1. Preimenovati ".env.example" u ".env.local"
 2. Promjeniti ``SEND_MAIL = true``
 3. Promjeniti ``MAIL_USERNAME = vašmail@example.com``
 4. Promjeniti ``MAIL_PASSWORD = generated app password``
